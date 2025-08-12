@@ -53,13 +53,22 @@
 
 ## 🚀 快速开始
 
-### 在线使用
-1. 打开项目文件夹
-2. 启动本地服务器：
-   ```bash
-   python3 -m http.server 8080
-   ```
-3. 在浏览器中访问：`http://localhost:8080`
+### 📦 本地运行
+
+#### 启动本地服务器
+```bash
+# 方法1：使用Python启动服务器
+python3 -m http.server 8080
+
+# 方法2：使用Node.js
+npx http-server -p 8080
+
+# 方法3：使用PHP
+php -S localhost:8080
+```
+
+#### 访问应用
+在浏览器中访问：`http://localhost:8080`
 
 ### 基本使用流程
 1. **上传字体**：点击"上传字体"按钮选择TTF/OTF字体文件
@@ -100,6 +109,7 @@
 
 ```
 TibetanFontPreview/
+├── font-file           # 存放字体文件目录
 ├── index.html          # 主页面文件
 ├── styles.css          # 样式文件
 ├── script.js           # 主要逻辑文件
@@ -121,6 +131,29 @@ TibetanFontPreview/
 - **美观动画**：流畅的交互动画效果
 - **直观控制**：简洁易用的控制面板
 
+## 🛠️ 故障排除
+
+### 浏览器兼容性问题
+
+#### 字体加载失败
+- 确保使用支持的浏览器（Chrome、Firefox、Safari、Edge）
+- 检查字体文件格式是否为TTF或OTF
+- 尝试刷新页面重新加载字体
+
+#### 动画效果不显示
+- 检查浏览器是否支持CSS3动画
+- 确保JavaScript已启用
+- 尝试使用最新版本的浏览器
+
+## 🤝 贡献指南
+
+欢迎提交Issue和Pull Request来改进这个项目！
+
+### 开发规范
+- 代码注释使用中文
+- 遵循现有的代码风格
+- 添加新功能时更新README文档
+
 ## 📋 更新日志
 
 ### v1.0.0 (2024-12-19)
@@ -130,3 +163,5 @@ TibetanFontPreview/
 - ✨ 添加12种动画效果
 - ✨ 支持PNG和SVG导出
 - ✨ 优化界面布局和用户体验
+
+
