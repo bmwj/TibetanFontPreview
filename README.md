@@ -1,7 +1,7 @@
 # 藏文字体预览工具 (Tibetan Font Preview)
 
 一个功能强大的在线藏文字体预览和效果生成工具，支持字体上传、实时预览、颜色设置、动画效果和高质量图片导出。
-![alt text](image.png)
+![alt text](image-1.png)
 ### ✨ 主要功能
 #### 🔤 字体管理
 - 支持上传 TTF/OTF 格式的藏文字体文件
