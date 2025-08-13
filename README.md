@@ -3,7 +3,7 @@
 </div>
 <p>一个功能强大的在线藏文字体预览和效果生成工具，支持字体上传、实时预览、颜色设置、动画效果和高质量图片导出。</p>
 <div align="center">
-  <img src="./output/image-copy.png" alt="藏文字体预览工具截图">
+  <img src="./output/imagecopy.png" alt="藏文字体预览工具截图">
 </div>
 
 ### ✨ 主要功能
