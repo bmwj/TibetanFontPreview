@@ -695,7 +695,8 @@ const AnimationManager = {
   
   // 应用字符级动画
   applyCharacterAnimation(element, text) {
-    const chars = text.split('');
+    // 使用扩展的分割方法，更好地处理Unicode字符，特别是藏文
+    const chars = Array.from(text);
     
     // 创建字符级动画
     chars.forEach((char, index) => {
@@ -704,6 +705,12 @@ const AnimationManager = {
       charSpan.textContent = char;
       charSpan.style.animationDelay = `${index * (AppState.animation.speed / 20)}s`;
       charSpan.style.animationDuration = `${AppState.animation.speed}s`;
+      
+      // 确保藏文字体应用到每个字符
+      const currentFont = FontManager.getCurrentFont();
+      charSpan.style.fontFamily = currentFont.isDefault ? 
+        currentFont.family : 
+        `"${currentFont.name}", ${currentFont.family}`;
       
       // 根据动画类型设置不同的动画
       switch(AppState.animation.type) {
@@ -1235,6 +1242,56 @@ const EventManager = {
 
 
 /**
+ * 背景管理器 - 处理背景相关功能
+ */
+const BackgroundManager = {
+  // 预定义的颜色组合
+  colorSets: [
+    ['#053724', '#255e2e', '#58852c', '#9aaa20', '#ebca12'], // 绿色到黄色
+    ['#1a2a6c', '#b21f1f', '#fdbb2d'], // 蓝色到红色到黄色
+    ['#4b6cb7', '#182848'], // 蓝色渐变
+    ['#ff9966', '#ff5e62'], // 橙色到红色
+    ['#7f7fd5', '#86a8e7', '#91eae4'], // 紫色到蓝色
+    ['#654ea3', '#eaafc8'], // 紫色到粉色
+    ['#11998e', '#38ef7d'], // 绿色渐变
+    ['#fc466b', '#3f5efb'], // 红色到蓝色
+    ['#c31432', '#240b36'], // 红色到深紫色
+    ['#3a1c71', '#d76d77', '#ffaf7b'], // 紫色到橙色
+    ['#12c2e9', '#c471ed', '#f64f59'], // 蓝色到红色
+    ['#40e0d0', '#ff8c00', '#ff0080'], // 青色到橙色到粉色
+    ['#8e2de2', '#4a00e0'], // 紫色渐变
+    ['#8a2387', '#e94057', '#f27121'], // 紫色到橙色
+    ['#0f0c29', '#302b63', '#24243e'] // 深蓝色渐变
+  ],
+  
+  // 生成随机渐变背景
+  generateRandomBackground() {
+    // 使用时间戳作为随机种子，确保每次都不同
+    const timestamp = new Date().getTime();
+    const randomIndex = Math.floor((timestamp % 1000) / 1000 * this.colorSets.length);
+    const randomSet = this.colorSets[randomIndex];
+    
+    // 创建渐变CSS
+    const gradientCSS = `radial-gradient(circle, ${randomSet.join(', ')})`;
+    
+    // 应用到body
+    document.body.style.backgroundImage = gradientCSS;
+    
+    // 存储到localStorage，以便在页面刷新时检查是否需要更改
+    localStorage.setItem('lastBackgroundTimestamp', timestamp);
+    localStorage.setItem('lastBackgroundGradient', gradientCSS);
+    
+    console.log('应用随机背景渐变:', gradientCSS);
+  },
+  
+  // 初始化背景
+  initBackground() {
+    // 总是生成新的背景，即使是304响应
+    this.generateRandomBackground();
+  }
+};
+
+/**
  * 应用初始化
  */
 document.addEventListener('DOMContentLoaded', () => {
@@ -1246,5 +1303,8 @@ document.addEventListener('DOMContentLoaded', () => {
   UIManager.addAnimationEffects();
   UIManager.initializeAnimationControls();
   UIManager.detectBrowserSupport();
+  
+  // 应用随机背景
+  BackgroundManager.generateRandomBackground();
 });
 
